@@ -19,6 +19,8 @@ class STFTMag(nn.Module):
                           self.nfft,
                           self.hop,
                           window=self.window,
+                          return_complex=True
                           )#return_complex=False)  #[B, F, TT,2]
+        stft = torch.view_as_real(stft)
         mag = torch.norm(stft, p=2, dim =-1) #[B, F, TT]
         return mag

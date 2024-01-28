@@ -1,9 +1,9 @@
 train:
-  batch_size: 12
+  batch_size: 8
   lr: 2e-4
   weight_decay: 0.00
-  num_workers: 8
-  gpus: 2 #ddp
+  num_workers: 0
+  gpus: 1 #ddp
   opt_eps: 1e-9
   beta1: 0.9
   beta2: 0.99
@@ -11,8 +11,8 @@ train:
 data:
   timestamp_path: 'vctk-silence-labels/vctk-silences.0.92.txt'
   base_dir: '/DATA1/VCTK-0.92/wav48_silence_trimmed/'
-  dir: '/DATA1/VCTK-0.92/wav48_silence_trimmed_wav/'
-  format: '*mic1.wav'
+  dir: 'D:/Code/StyleTTS2/acoustic_rec_data'
+  format: '*.wav'
   cv_ratio: (100./108., 8./108., 0.00) #train/val/test
 
 audio:

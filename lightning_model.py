@@ -108,10 +108,10 @@ class NuWave2(pl.LightningModule):
         return opt
 
     def train_dataloader(self):
-        return dataloader.create_vctk_dataloader(self.hparams, 0)
+        return dataloader.create_styletts2_dataloader(self.hparams, 0)
 
     def val_dataloader(self):
-        return dataloader.create_vctk_dataloader(self.hparams, 1)
+        return dataloader.create_styletts2_dataloader(self.hparams, 1)
 
     def test_dataloader(self, sr):
-        return dataloader.create_vctk_dataloader(self.hparams, 2, sr)
+        return dataloader.create_styletts2_dataloader(self.hparams, 2, sr)

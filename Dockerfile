@@ -35,4 +35,4 @@ WORKDIR /root/nuwave2
 COPY *py /root/nuwave2/
 COPY *yaml /root/nuwave2/
 COPY utils /root/nuwave2/utils
-COPY train_vast.ipynb
+COPY train_vast.ipynb /root/nuwave2/

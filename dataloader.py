@@ -236,14 +236,22 @@ class StyleTTS2Dataset(Dataset):
             start = random.randint(0, wav.shape[0] - self.hparams.audio.length)
             wav = wav[start:start + self.hparams.audio.length] if self.cv < 2 \
                 else wav[:len(wav) - len(wav) % self.hparams.audio.hop_length]
-        wav *= random.random() / 2 + 0.5 if self.cv < 2 else 1
-
+        fac = random.random() / 2 + 0.5 if self.cv < 2 else 1
+        wav *= fac
         highcut = 24000
         nyq = 0.5 * 48000
         hi = highcut / nyq
 
         # upsample to 48k
         wav_l = resample_poly(wav_l, 48000, 24000)
+        # Perform same transforms
+        if wav_l.shape[0] < self.hparams.audio.length:
+            padl = self.hparams.audio.length - wav_l.shape[0]
+            wav_l = np.pad(wav_l, (r, padl - r), 'constant', constant_values=0)
+        else:
+            wav_l = wav_l[start:start + self.hparams.audio.length] if self.cv < 2 \
+                else wav_l[:len(wav_l) - len(wav_l) % self.hparams.audio.hop_length]
+        wav_l *= fac
 
         if len(wav_l) < len(wav):
             wav_l = np.pad(wav, (0, len(wav) - len(wav_l)), 'constant', constant_values=0)
